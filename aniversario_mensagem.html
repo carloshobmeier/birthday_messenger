@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador Avançado de Mensagens de Aniversário</title>
+    <style>
+        /* Corpo e Configuração Geral */
+        body {
+            max-width: 900px;
+            text-align: center;
+            margin: auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+    
+        h2 {
+            margin-top: 10px;
+            color: #333;
+        }
+    
+    label, input, select {
+        margin-right: 10px; /* Adiciona margem à direita de todos os elementos */
+        margin-top: 10px;
+    }
+
+    input[type="text"], select {
+        padding: 8px;
+        width: 60%;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+    }
+    .input-container {
+        display: inline-block; /* Garante que o contêiner não ocupe a largura total */
+        width: 300px; /* Defina a largura desejada */
+    }
+
+
+        /* Estilos para os Botões */
+        button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            background-color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+    
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .especial {
+            margin-top:20px;
+        }
+    
+        #helloBtn { background-color: #3498db; } /* Azul */
+        #introductionBtn { background-color: #2ecc71; } /* Verde */
+        #emojisBtn { background-color: #9b59b6; } /* Violeta */
+        #amenidadesBtn { background-color: #1abc9c; } /* Turquesa */
+        #bodyBtn { background-color: #e74c3c; } /* Vermelho */
+        #conclusionBtn { background-color: #f1c40f; } /* Amarelo */
+        #goodbyeBtn { background-color: #ff69b4; } /* Rosa */
+    
+
+        #helloBtnS { background-color: #3498db93; } /* Azul */
+        #introductionBtnS { background-color: #2ecc7193; } /* Verde */
+        #emojisBtnS { background-color: #9b59b693; } /* Violeta */
+        #amenidadesBtnS { background-color: #1abc9c93; } /* Turquesa */
+        #bodyBtnS { background-color: #e74c3c93; } /* Vermelho */
+        #conclusionBtnS { background-color: #f1c40f93; } /* Amarelo */
+        #goodbyeBtnS { background-color: #ff69b493; } /* Rosa */
+
+        /* Área da Mensagem */
+        #fullMessage {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+    
+        /* Cores dos Segmentos da Mensagem */
+        #fullMessage .message-part {
+            padding: 5px;
+            display: block; /* Cada parte em uma nova linha */
+            margin-bottom: 0px;
+            margin-top: 0px;
+            font-size: 11pt;
+        }
+    
+        .hello { color: #3498db; }
+        .introduction { color: #2ecc71; }
+        .amenidades { color: #1abc9c; }
+        .body { color: #e74c3c; }
+        .conclusion { color: #f1c40f; }
+        .goodbye { color: #ff69b4; }
+    
+        /* Estilização Adicional */
+        label, input, select {
+            margin-top: 10px;
+        }
+    
+        input[type="text"], select {
+            padding: 8px;
+            width: 60%;
+            margin-top: 5px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+    
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .primeiro{
+            width: 150px;
+        }
+
+        p {margin-bottom:2px;}
+
+        .escolha {margin-left: 0px;}
+
+        #name {margin-left: 0px;}
+    </style>
+</head>
+<body>
+    <h2>Gerador Avançado de Mensagens de Aniversário</h2>
+    <div style="display: flex; align-items: center; align-content: center;">
+        <div class="input-container">
+            <label for="name" class="marTop">Nome:</label>
+            <input type="text" id="name" class="marTop" placeholder="Digite o nome da pessoa" required>
+        </div>
+        <div class="escolha">
+            <label class="marTop">Gênero:</label>
+            <label><input type="radio" name="gender" value="male" class="marTop" checked>Homem</label>
+            <label><input type="radio" name="gender" value="female" class="marTop">Mulher</label>
+        </div>
+        <div class="buttonContainer">
+            <button class="especial" onclick="generateRandomMessage()">Gerar Tudo</button>
+            <button classs="especial" onclick="removeAll()">Suprimir Tudo</button>
+        </div>
+    </div>
+    <div id="corpo">
+        <p id="fullMessage">Clique no botão acima para gerar uma mensagem completa, ou nos botões abaixo para gerar cada parte da mensagem!</p>
+        <p><strong>Alterar:</strong></p>
+        <button id="helloBtn" onclick="generatePart('hello')">Olá</button>
+        <button id="introductionBtn" onclick="generatePart('introduction')">Introdução</button>
+        <button id="emojisBtn" onclick="generatePart('emojis')">Emojis</button>
+        <button id="amenidadesBtn" onclick="generatePart('amenidades')">Amenidades</button>
+        <button id="bodyBtn" onclick="generatePart('body')">Desenvolvimento</button>
+        <button id="conclusionBtn" onclick="generatePart('conclusion')">Despedida</button>
+        <button id="goodbyeBtn" onclick="generatePart('goodbye')">Tchau</button>
+    </div>
+    <div>
+        <p><strong>Suprimir:</strong></p>
+        <button id="helloBtnS" onclick="removePart('hello')">Olá</button>
+        <button id="introductionBtnS" onclick="removePart('introduction')">Introdução</button>
+        <button id="emojisBtnS" onclick="removePart('emojis')">Emojis</button>
+        <button id="amenidadesBtnS" onclick="removePart('amenidades')">Amenidades</button>
+        <button id="bodyBtnS" onclick="removePart('body')">Desenvolvimento</button>
+        <button id="conclusionBtnS" onclick="removePart('conclusion')">Despedida</button>
+        <button id="goodbyeBtnS" onclick="removePart('goodbye')">Tchau</button>
+    </div>
+    <script>
+        const parts = {
+            hello: [
+                "Oi NAME, como estão as coisas?",
+                "Oi NAME, que alegria vir escrever para você hoje!",
+                "Daí NAME, como você está?",
+                "Ei NAME, hoje é um dia muito especial!",
+                "Ei NAME, espero que você esteja tendo um bom dia!",
+                "Bom dia NAME, quanto tempo?!",
+                "Hey NAME, como vai a vida?!",
+            ],
+            introduction: [
+                "Feliz aniversário!",
+                "Parabéns pelo seu aniversário!",
+                "Hoje celebramos mais um ano da sua vida!",
+                "Meus parabéns!",
+                "Meus parabéns pelo seu dia!",
+                "Muitas felicidades!",
+                "Muitos anos de vida!",
+                "Estou passando para te desejar um feliz aniversário!",
+                "Hoje é um dia muito especial!",
+            ],
+            emojis: [
+                "😉",
+                "🤜🏻🤛🏻",
+                "👊🏻",
+                "❤️",
+                "🎉🎊🥳🎂🎁🎈",
+                "🍾",
+            ],
+            amenidades: [
+                "Uhuuuuuullll!!!",
+                "hahahahaha",
+                "Aeeeeeeee",
+            ],
+            body: [
+                "Espero que todos os seus sonhos se realizem.",
+                "Que você tenha um dia maravilhoso.",
+                "Que cada momento do seu dia seja marcado de felicidade.",
+                "Hoje é um dia para comemorarmos muito.",
+                "Espero que todos os seus sonhos se tornem realidade neste ano que se inicia.",
+                "E que este novo ciclo traga sucesso, saúde e paz na sua vida.",
+                "Que sua vida esteja sempre cercada de amor e realizações.",
+                "Te desejo uma vida cercada pelas pessoas que te façam bem e te apoiem.",
+                "Você merece muito e torço muito por você.",
+                "Que a vida lhe traga as melhores experiências.",
+                "Te desejo tudo de melhor.",
+                "Te acho uma pessoa incrível.",
+                "Espero que você saiba do carinho, admiração e respeito que tenho por você.",
+            
+            ],
+            conclusion: [
+                "Aproveite cada momento e seja sempre feliz.",
+                "Curta bastante.",
+                "Que este aniversário seja o início de um capítulo inesquecível na sua vida.",
+                "Desejo a você um futuro brilhante, com muita paz e alegria.",
+                "Que a felicidade deste dia se estenda por todos os outros.",
+                "Coma bastante bolo.",
+                "Que você continue sendo sempre essa pessoa incrível que alegra a vida de todos ao redor.",
+                "Nunca deixe de ser essa pessoa incrível.",
+                "Pro que precisar estou sempre por aqui.",
+                "Gosto muito de ti!",
+            ],
+            goodbye: {
+                male: [
+                    "Um grande abraço, bro!",
+                    "Espero ver você em breve para comemorarmos juntos, um forte abraço!",
+                    "Até logo, meu velho! Abração!",
+                    "Até mais, cara! Abraço!",
+                    "Um forte abraço e até a próxima vez que nos encontrarmos!",
+                    "Sucessoooo!!!",
+                    "Aquele abraço!",
+                    "Vamos marcar alguma para comemorar! Abração!",
+                ],
+                female: [
+                    "Beijo!",
+                    "Beijão!",
+                    "Espero ver você em breve para comemorarmos juntos, um beijo!",
+                    "Até logo, beijão!!",
+                    "Até mais, beijo!!",
+                    "Um grande beijo e muitas felicidades!",
+                    "Sucessooo!!!",
+                    "Beijão e até a próxima vez que nos encontrarmos!",
+                    "Vamos marcar alguma para comemorar! Beijão!",
+                ]
+            }
+        };
+
+        function generateRandomMessage() {
+            
+            const name = document.getElementById('name').value;
+            if (name === '') {
+                alert('Por favor, insira um nome antes de gerar a mensagem.');
+                return; // Retorna da função se o nome estiver vazio
+            }
+
+
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const message = {
+                hello: parts.hello[Math.floor(Math.random() * parts.hello.length)].replace('NAME', name),
+                introduction: parts.introduction[Math.floor(Math.random() * parts.introduction.length)],
+                emojis: parts.emojis[Math.floor(Math.random() * parts.emojis.length)],
+                amenidades: parts.amenidades[Math.floor(Math.random() * parts.amenidades.length)],
+                body: parts.body[Math.floor(Math.random() * parts.body.length)],
+                conclusion: parts.conclusion[Math.floor(Math.random() * parts.conclusion.length)],
+                goodbye: parts.goodbye[gender][Math.floor(Math.random() * parts.goodbye[gender].length)]
+            };
+            displayMessage(message);
+        }
+
+        function removeAll(){
+            const message = {
+                hello: '',
+                introduction: '',
+                emojis: '',
+                amenidades: '',
+                body: '',
+                conclusion: '',
+                goodbye: ''
+            };
+            displayMessage(message);
+        }
+
+        function generatePart(part) {
+            const name = document.getElementById('name').value;
+
+            // Verifica se o nome está preenchido quando a parte 'hello' é requisitada
+            if (part === 'hello' && name === '') {
+                alert('Por favor, insira um nome antes de gerar o "Olá".');
+                return; // Impede a função de continuar se não houver nome
+            }
+
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+
+            // Recuperar o estado atual da mensagem do dataset do elemento HTML
+            const currentData = document.getElementById('fullMessage').dataset;
+            const currentMessage = {
+                hello: currentData.hello || '',
+                introduction: currentData.introduction || '',
+                emojis: currentData.emojis || '',
+                amenidades: currentData.amenidades || '',
+                body: currentData.body || '',
+                conclusion: currentData.conclusion || '',
+                goodbye: currentData.goodbye || ''
+            };
+
+            // Atualizar apenas a parte específica da mensagem
+            currentMessage[part] = (part === 'hello')
+                ? parts.hello[Math.floor(Math.random() * parts.hello.length)].replace('NAME', name)
+                : (part === 'goodbye')
+                    ? parts.goodbye[gender][Math.floor(Math.random() * parts.goodbye[gender].length)]
+                    : parts[part][Math.floor(Math.random() * parts[part].length)];
+
+            displayMessage(currentMessage);
+        }
+
+        function removePart(part) {
+            const currentData = document.getElementById('fullMessage').dataset;
+            const currentMessage = {
+                hello: currentData.hello || '',
+                introduction: currentData.introduction || '',
+                emojis: currentData.emojis || '',
+                amenidades: currentData.amenidades || '',
+                body: currentData.body || '',
+                conclusion: currentData.conclusion || '',
+                goodbye: currentData.goodbye || ''
+            };
+            currentMessage[part] = ''; // Clear the specific part
+            displayMessage(currentMessage);
+        }
+
+        function displayMessage(message) {
+            const messageHTML = `
+                <span class="message-part hello" style="margin-bottom: 0px;">${message.hello || ''}</span>
+                <span class="message-part introduction" style="margin-bottom: 0px;">${message.introduction || ''}</span>
+                <span class="message-part emojis" style="margin-bottom: 0px;">${message.emojis || ''}</span>
+                <span class="message-part amenidades" style="margin-bottom: 0px;">${message.amenidades || ''}</span>
+                <span class="message-part body" style="margin-bottom: 0px;">${message.body || ''}</span>
+                <span class="message-part conclusion" style="margin-bottom: 0px;">${message.conclusion || ''}</span>
+                <span class="message-part goodbye" style="margin-bottom: 0px;">${message.goodbye || ''}</span>
+            `;
+            document.getElementById('fullMessage').innerHTML = messageHTML;
+            document.getElementById('fullMessage').dataset.hello = message.hello;
+            document.getElementById('fullMessage').dataset.introduction = message.introduction;
+            document.getElementById('fullMessage').dataset.emojis = message.emojis;
+            document.getElementById('fullMessage').dataset.amenidades = message.amenidades;
+            document.getElementById('fullMessage').dataset.body = message.body;
+            document.getElementById('fullMessage').dataset.conclusion = message.conclusion;
+            document.getElementById('fullMessage').dataset.goodbye = message.goodbye;
+        }
+
+    </script>
+</body>
+</html>
